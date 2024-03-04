@@ -1,4 +1,4 @@
-ios企业微信hook
+ios企业微信hook (THEOS)
 
 百度到的文章多为hook住WWKLocationRetrieverBaseTask以及WWKLocationRetriever这两个类，因为它们是CLLocationManagerDelegate的回调，
 但经测试发现有的地方并没有通过这两个类去调用CLLocation，迫不得已干脆对CLLocationManager的startUpdatingLocation直接hook住，在这个方
