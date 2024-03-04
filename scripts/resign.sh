@@ -1,3 +1,4 @@
+# 手动重签名脚本
 if [ ! -n "$2" ]; then
   echo "Usage: ./resign.sh app.ipa ./embedded.mobileprovision \n\tor ./resign.sh xxx.app ./embedded.mobileprovision"
   exit 1

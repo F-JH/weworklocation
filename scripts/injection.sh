@@ -1,3 +1,4 @@
+# 注入dylib脚本
 if [ ! -n "$1" ]; then
   echo "Usage: ./injection.sh app.ipa"
   exit 1

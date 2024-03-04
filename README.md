@@ -1,0 +1,13 @@
+ios企业微信hook
+
+百度到的文章多为hook住WWKLocationRetrieverBaseTask以及WWKLocationRetriever这两个类，因为它们是CLLocationManagerDelegate的回调，
+但经测试发现有的地方并没有通过这两个类去调用CLLocation，迫不得已干脆对CLLocationManager的startUpdatingLocation直接hook住，在这个方
+法里直接调用didUpdateLocations去修改定位。
+
+额外在主界面右上角的小菜单增加一个开关；
+
+增加了重签名脚本，以及dylib注入脚本。分别是：
+注入脚本：injection.sh
+重签名脚本：resign.sh
+
+注：注入脚本使用了optool，需要自行安装
