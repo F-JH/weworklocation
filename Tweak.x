@@ -12,9 +12,8 @@
 
 - (void)startUpdatingLocation {
     if ([FJHLocationManager shareInstance].isOpen) {
-        CLLocation *JoyyLocation = [[CLLocation alloc] initWithLatitude:23.010666 longitude:113.342308]; // Joyy
-        // CLLocation *JoyyLocation = [[CLLocation alloc] initWithLatitude:22.972883 longitude:113.326066]; // 祈福缤纷汇8座
-        NSArray *locations = [[NSArray alloc] initWithObjects:JoyyLocation, nil];
+        CLLocation *CompanyLocation = [[CLLocation alloc] initWithLatitude:23.010666 longitude:113.342308];
+        NSArray *locations = [[NSArray alloc] initWithObjects:CompanyLocation, nil];
         [self.delegate locationManager:self didUpdateLocations:locations];
     } else {
         %orig;
