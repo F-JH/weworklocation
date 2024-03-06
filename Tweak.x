@@ -7,9 +7,6 @@
 #import "src/FJHLocationManager.h"
 #import "include/QMUIPopupMenuView.h"
 
-// typedef void (*HideWithAnimatedFunction)(id, SEL, BOOL);
-
-
 %hook CLLocationManager
 
 - (void)startUpdatingLocation {
