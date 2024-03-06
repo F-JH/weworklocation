@@ -10,6 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isOpen;
 // 初始化主界面右上角小菜单
 @property (nonatomic, strong) id items;
+@property (nonatomic, strong) id QMUIPopupMenuViewObj;
 + (instancetype)shareInstance;
 @end
 NS_ASSUME_NONNULL_END

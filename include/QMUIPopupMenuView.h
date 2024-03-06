@@ -83,6 +83,7 @@
 - (void)wwk_styledAsTabViewPopoverMenu;
 - (void)wwk_styledAsSearchCheckboxPopoverMenu;
 - (void)wwk_styledAsSearchCheckmarkPopoverMenu;
+- (void)hideWithAnimated:(BOOL)animated;
 
 @end
 

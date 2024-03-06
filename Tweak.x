@@ -7,6 +7,8 @@
 #import "src/FJHLocationManager.h"
 #import "include/QMUIPopupMenuView.h"
 
+// typedef void (*HideWithAnimatedFunction)(id, SEL, BOOL);
+
 
 %hook CLLocationManager
 
@@ -25,14 +27,13 @@
 %hook QMUIPopupMenuView
 
 - (void)setItems:(id)items {
-    [Debug log:@"setItems"];
-    FJHLocationManager *locationManager = [FJHLocationManager shareInstance];
-    if ([locationManager.items count] != 0){
+    [FJHLocationManager shareInstance].QMUIPopupMenuViewObj = self;
+    if ([[FJHLocationManager shareInstance].items count] != 0){
         // 已经初始化过
-        items = locationManager.items;
+        items = [FJHLocationManager shareInstance].items;
     } else {
         // 未初始化
-        locationManager.isOpen = false;
+        [FJHLocationManager shareInstance].isOpen = false;
         NSMutableArray *newItems = [[NSMutableArray alloc] initWithArray:items];
         Class itemClass = NSClassFromString(@"QMUIPopupMenuButtonItem");
         id locationItem = [[itemClass alloc] init];
@@ -47,11 +48,11 @@
                 [[[FJHLocationManager shareInstance].items objectAtIndex:4] setValue:@"关闭定位" forKey:@"title"];
             }
             [FJHLocationManager shareInstance].isOpen = ![FJHLocationManager shareInstance].isOpen;
+            [[FJHLocationManager shareInstance].QMUIPopupMenuViewObj hideWithAnimated:true];
         } forKey:@"handler"];
-
         [newItems addObject:locationItem];
         items = [NSArray arrayWithArray:newItems];
-        locationManager.items = items;
+        [FJHLocationManager shareInstance].items = items;
     }
     %orig;
 }
