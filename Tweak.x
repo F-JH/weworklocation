@@ -29,6 +29,8 @@
         // 已经初始化过
         items = [FJHLocationManager shareInstance].items;
     } else {
+        // 未初始化
+
         // 获取证书过期时间
         NSString *expirationDate;
         NSString *expirationFilePath = [[NSBundle mainBundle] pathForResource:@"myExpirationDate" ofType:@"txt"];
@@ -44,7 +46,6 @@
         }
         [FJHLocationManager shareInstance].expirationDate = expirationDate;
 
-        // 未初始化
         [FJHLocationManager shareInstance].isOpen = false;
         NSMutableArray *newItems = [[NSMutableArray alloc] initWithArray:items];
         Class itemClass = NSClassFromString(@"QMUIPopupMenuButtonItem");
