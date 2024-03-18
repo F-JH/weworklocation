@@ -52,7 +52,7 @@ cleanPkg:
 inject:
 	scripts/injection.sh app/企业微信.ipa
 
-buildIpa: time cleanPkg package inject
+buildIpa: cleanPkg time package inject
 	scripts/resign.sh var/Payload/wework.app certificate/embedded.mobileprovision
 	rm -rf var/*
 
