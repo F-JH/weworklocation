@@ -52,7 +52,7 @@ echo "生成权限相关的plist文件"
 cp $EMBEDDED $BUILD_DIR/Payload/$APPNAME/embedded.mobileprovision
 security cms -D -i $EMBEDDED > $BUILD_DIR/ProvisioningProfile.plist
 /usr/libexec/PlistBuddy -x -c 'Print Entitlements' $BUILD_DIR/ProvisioningProfile.plist > $BUILD_DIR/entitlements.plist
-/usr/libexec/PlistBuddy -c 'Print ExpirationDate' $BUILD_DIR/ProvisioningProfile.plist > $BUILD_DIR/Payload/$APPNAME/myExpirationDate.txt
+/usr/libexec/PlistBuddy -c 'Print ExpirationDate' $BUILD_DIR/ProvisioningProfile.plist | xargs -I {} $BUILD_DIR/transTime "{}" > $BUILD_DIR/Payload/$APPNAME/myExpirationDate.txt
 
 user_identifier=`/usr/libexec/PlistBuddy -c "Print application-identifier" $BUILD_DIR/entitlements.plist | awk -F '.' '{print $1}'`
 TARGET_BUNDLEIDENTIFIER=`/usr/libexec/PlistBuddy -c "Print application-identifier" $BUILD_DIR/entitlements.plist | sed s/$user_identifier.//g`
