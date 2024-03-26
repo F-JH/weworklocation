@@ -110,6 +110,8 @@ for i in "${resign_obj[@]}" ; do
   esac
 done
 
+codesign -vv -d $APPNAME
+
 rm entitlements.plist
 cd ..
 

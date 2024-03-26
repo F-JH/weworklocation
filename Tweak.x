@@ -44,7 +44,8 @@
         }else {
             expirationDate = @"File not found at path";
         }
-        [FJHLocationManager shareInstance].expirationDate = expirationDate;
+        NSString* bundleIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+        [FJHLocationManager shareInstance].expirationDate = [NSString stringWithFormat:@"%@\n包名：%@", expirationDate, bundleIdentifier];
 
         [FJHLocationManager shareInstance].isOpen = false;
         NSMutableArray *newItems = [[NSMutableArray alloc] initWithArray:items];
