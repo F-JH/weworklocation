@@ -11,3 +11,8 @@ ios企业微信hook (THEOS)
 重签名脚本：resign.sh
 
 注：注入脚本使用了optool，需要自行安装
+
+1.安装theos依赖: https://liam.page/2023/01/19/Build-an-iOS-Jailbreak-Tweak-Install-Theos/
+2.安装optool: https://github.com/alexzielenski/optool
+3.把企业微信.ipa放到 app/ 目录下，证书文件放在 certificate/embedded.mobileprovision
+4.直接编译并打包成ipa: make buildIpa 在build路径下找到重签后的ipa安装
