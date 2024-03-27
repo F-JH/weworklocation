@@ -80,8 +80,13 @@ for i in "${rename_obj[@]}" ; do
   done
 done
 
-# 重签 & 删除原项目的 CFBundleREsourceSpecification
+# 删除原项目的 CFBundleREsourceSpecification
 /usr/libexec/PlistBuddy -x -c 'Delete CFBundleREsourceSpecification' $APPNAME/Info.plist
+# 删除UISupportedDevices节点，否则只能安装在部分机型上，当然也可以考虑添加自己的机型到这个数组里
+/usr/libexec/PlistBuddy -x -c 'Delete UISupportedDevices' $APPNAME/Info.plist
+
+
+# 重签
 for i in "${resign_obj[@]}" ; do
   case $i in
     app | appex)
