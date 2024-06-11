@@ -41,20 +41,37 @@ weworklocationhook_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
+DYLIB=.theos/obj/debug/weworklocationhook.dylib
+CERT=certificate/embedded.mobileprovision
 
-
+.PHONY: check_package
+check_package:
+	@if [ ! -f $(DYLIB) ]; then \
+  		$(MAKE) all debug=0; \
+  	else \
+  		echo "$(DYLIB) already exists, skipping package target."; \
+  	fi
 
 cleanPkg:
 	rm -rf packages/*
 	rm -rf build/*
 	rm -rf var/*
+	rm -rf $(CERT)
 
 inject:
 	scripts/injection.sh app/企业微信.ipa
 
-buildIpa: cleanPkg time package inject
+buildIpa: cleanPkg $(CERT) check_package time inject
 	scripts/resign.sh var/Payload/wework.app certificate/embedded.mobileprovision
 	rm -rf var/*
 
+
 installIpa: buildIpa
 	ideviceinstall -i build/wework.ipa
+
+test: package
+	@echo "test"
+
+$(CERT):
+	@cert_file=$$(ls -l ~/Library/MobileDevice/Provisioning\ Profiles | grep -v '^total' | awk '{print $$NF}'); \
+  	cp ~/Library/MobileDevice/Provisioning\ Profiles/$$cert_file $@
