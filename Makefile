@@ -33,10 +33,11 @@ include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = weworklocationhook
 
-SRC_FILES = $(wildcard src/*.m)
+SRC_C_FILES = $(wildcard src/*.m)
+SRC_CXX_FILES = $(wildcard src/*.xm)
 
 #CLLocationManagerDelegate-Protocol.x
-weworklocationhook_FILES = Tweak.x $(SRC_FILES)
+weworklocationhook_FILES = Tweak.xm $(SRC_C_FILES) $(SRC_CXX_FILES)
 weworklocationhook_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
@@ -67,10 +68,10 @@ buildIpa: cleanPkg $(CERT) check_package time inject
 
 
 installIpa: buildIpa
-	ideviceinstall -i build/wework.ipa
+	ideviceinstaller -i $(BUILD_DIR)/wework.ipa
 
-test: package
-	@echo "test"
+.PHONY: crt
+crt: $(CERT)
 
 $(CERT):
 	@cert_file=$$(ls -l ~/Library/MobileDevice/Provisioning\ Profiles | grep -v '^total' | awk '{print $$NF}'); \

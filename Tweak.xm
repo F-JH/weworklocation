@@ -6,6 +6,10 @@
 #import "src/Debug.h"
 #import "src/FJHLocationManager.h"
 #import "include/QMUIPopupMenuView.h"
+#import "src/Utils.h"
+
+#define ORIG_BUNDLE @"com.tencent.ww"
+#define CFBundleIdentifier @"CFBundleIdentifier"
 
 %hook CLLocationManager
 
@@ -80,6 +84,28 @@
         [FJHLocationManager shareInstance].items = items;
     }
     %orig;
+}
+
+%end
+
+%hook NSBundle
+
+- (NSString*) bundleIdentifier{
+    if (isCallFromOrigin()){
+        NSString* bid = ORIG_BUNDLE;
+        return bid;
+    }
+    return %orig;
+}
+
+- (NSString*) objectForInfoDictionaryKey:(NSString*)key{
+    if ([key isKindOfClass:[NSString class]]) {
+        if ([key isEqualToString:@"CFBundleIdentifier"]) {
+            NSString* bid = ORIG_BUNDLE;
+            return bid;
+        }
+    }
+    return %orig;
 }
 
 %end
